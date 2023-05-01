@@ -6,7 +6,6 @@ import org.testng.Assert;
 import java.time.Duration;
 public class HomePage extends Utils{
     private By _registerButton = By.xpath("//a[@class=\"ico-register\"]");
-
     private By _goodRadioButton = By.xpath("//input[@id=\"pollanswers-2\"]");
     private By _voteButton = By.xpath("//button[text()='Vote']");
     private String getExpectedVotingErrorMsg = "Voting is working.";
@@ -17,6 +16,7 @@ public class HomePage extends Utils{
     private By _htcMobile = By.xpath("//div[@class=\"item-grid\"]/div[3]/div[1]/div[2]/div[3]/div[2]/button[2]");
     private By _closeGreenLine = By.xpath("//span[@class= \"close\"]");
     private By _virtualGiftCard = By.xpath("//div[@class=\"item-grid\"]/div[4]/div[1]/div[2]/div[3]/div[2]/button[2]");
+    private By _closeGreenLine2 = By.xpath("//span[@class= \"close\"]");
     private By _clickGreenLine = By.xpath("//div[@class=\"bar-notification success\"]/p/a[@href=\"/compareproducts\"]");
     private By _clickElectronics = By.xpath("//a[text()=\" Electronics \"]");
 
@@ -65,7 +65,7 @@ public class HomePage extends Utils{
         //click on Add to compare list for $25 Virtual Gift Card
         clickOnElement(_virtualGiftCard);
         //close green line bar
-        clickOnElement(_closeGreenLine);
+        clickOnElement(_closeGreenLine2);
 
         //for time wait
         //driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);

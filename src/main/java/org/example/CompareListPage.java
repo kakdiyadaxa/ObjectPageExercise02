@@ -9,7 +9,6 @@ public class CompareListPage extends Utils{
     private By _clearList = By.xpath("//A[@href='#'][text()='Clear list']");
     private By _compareListMessage = By.xpath("//div[@class='no-data'][text()='You have no items to compare.']");
     String getExpectedCompareAProductMsg = "You have two items to compare.";
-
     public void verifyUserComparedProductsSuccessfully(){
         //get text of $25 Virtual Gift Card and HTC One M8 Android L 5.0 Lollipop
         String name1 = getTextFromElement(_virtualGiftCardText);

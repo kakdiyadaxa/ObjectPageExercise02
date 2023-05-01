@@ -27,7 +27,7 @@
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>RELEASE</version>
-      <scope>test</scope>
+
     </dependency>
     <dependency>
       <groupId>org.testng</groupId>
@@ -35,6 +35,7 @@
       <version>7.7.1</version>
       <scope>compile</scope>
     </dependency>
+
 
 
   </dependencies>
