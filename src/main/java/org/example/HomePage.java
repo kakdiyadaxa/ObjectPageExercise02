@@ -4,6 +4,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
 public class HomePage extends Utils{
     private By _registerButton = By.xpath("//a[@class=\"ico-register\"]");
     private By _goodRadioButton = By.xpath("//input[@id=\"pollanswers-2\"]");
@@ -56,15 +58,13 @@ public class HomePage extends Utils{
         //close green line bar
         clickOnElement(_closeGreenLine);
 
-        //driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
         //click on Add to compare list for $25 Virtual Gift Card
         clickOnElement(_virtualGiftCard);
+
         //close green line bar
         clickOnElement(_closeGreenLine2);
 
         //for time wait
-        //driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
         wait.until(ExpectedConditions.visibilityOfElementLocated(_clickGreenLine));
 

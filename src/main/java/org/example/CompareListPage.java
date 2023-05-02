@@ -21,8 +21,9 @@ public class CompareListPage extends Utils{
 
         //get text for actual message
         String actualMessage = getTextFromElement(_compareListMessage);
-        System.out.println("My Message :" +actualMessage);
+        System.out.println("My Message :" + actualMessage);
+        Assert.assertEquals(actualMessage, getExpectedCompareAProductMsg);
 
-        Assert.assertEquals(actualMessage,getExpectedCompareAProductMsg);
+
     }
 }

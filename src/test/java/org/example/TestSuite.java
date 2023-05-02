@@ -38,7 +38,7 @@ public class TestSuite extends BaseTest{
         //click on login button
         registerResultPage.clickOnLoginButton();
         //fill login details
-        loginPage.enterLoginDetails2();
+        loginPage.enterLoginDetails();
         //click on Good radio button
         homePage.clickOnGoodRadioButton();
         //click on vote button
@@ -47,7 +47,7 @@ public class TestSuite extends BaseTest{
         homePage.userVoteMessage();
     }
     @Test
-    public void verifyNonRegisteredUserShouldNotAbleToReferAProduct(){
+    public void verifyNonRegisteredUserShouldNotAbleToReferAProductToAFriendSuccessfully(){
         //click on Apple MacBook Pro 13-inch
         homePage.clickOnAppleMacBook();
         //click on Email a friend
@@ -64,7 +64,7 @@ public class TestSuite extends BaseTest{
         //click on login button
         registerResultPage.clickOnLoginButton();
         //fill login details
-        loginPage.enterLoginDetails2();
+        loginPage.enterLoginDetails();
         //click on Apple MacBook Pro 13-inch
         homePage.clickOnAppleMacBook();
         //click on Email a friend
@@ -78,6 +78,7 @@ public class TestSuite extends BaseTest{
         homePage.addProductsToCompareList();
         //verify User Compared Products Successfully
         compareListPage.verifyUserComparedProductsSuccessfully();
+
     }
     @Test
     public void verifyUserShouldBeAbleToSeeProductInShoppingCartSuccessfully(){
