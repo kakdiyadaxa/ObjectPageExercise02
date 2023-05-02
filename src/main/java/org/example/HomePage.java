@@ -19,12 +19,10 @@ public class HomePage extends Utils{
     private By _closeGreenLine2 = By.xpath("//span[@class= \"close\"]");
     private By _clickGreenLine = By.xpath("//div[@class=\"bar-notification success\"]/p/a[@href=\"/compareproducts\"]");
     private By _clickElectronics = By.xpath("//a[text()=\" Electronics \"]");
-
     public void clickOnRegisterButton(){
         //click on register button
         clickOnElement(_registerButton);
     }
-
     public void clickOnGoodRadioButton(){
         //click on good radio button
         clickOnElement(_goodRadioButton);
@@ -36,10 +34,9 @@ public class HomePage extends Utils{
     public void verifyNonRegisterUserShouldNotBeAbleToVote(){
         //for time wait load
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("poll-vote-error")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(_voteErrorMessage));
         //print message
         String actualMessage = getTextFromElement(_voteErrorMessage);
-        //print message
         System.out.println("My message " + actualMessage);
         Assert.assertEquals(actualMessage,getExpectedVotingErrorMsg);
     }
@@ -47,7 +44,6 @@ public class HomePage extends Utils{
         //print out message
         String actualMessage = getTextFromElement(_voteMessage);
         System.out.println("My message " + actualMessage);
-        actualMessage = getTextFromElement(By.xpath("//span[@class=\"poll-total-votes\"]"));
         Assert.assertEquals(actualMessage,getExpectedVotingMsg);
     }
     public void clickOnAppleMacBook(){
@@ -70,7 +66,7 @@ public class HomePage extends Utils{
         //for time wait
         //driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class=\"bar-notification success\"]/p/a[@href=\"/compareproducts\"]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(_clickGreenLine));
 
         //click green line
         clickOnElement(_clickGreenLine);
