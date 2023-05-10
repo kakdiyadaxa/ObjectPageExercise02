@@ -10,7 +10,6 @@ public class ShoppingCartPage extends Utils{
         //print out actual message
         String actualMessage = getTextFromElement(_getProductInShoppingCart);
         System.out.println("My Message:" +actualMessage);
-
         Assert.assertEquals(actualMessage,getExpectedProductInShoppingCartMsg);
 
     }

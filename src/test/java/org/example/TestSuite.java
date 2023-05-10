@@ -1,6 +1,6 @@
 package org.example;
 import org.testng.annotations.Test;
-public class TestSuite extends BaseTest{
+public class TestSuite extends BaseTest {
     HomePage homePage = new HomePage();
     RegisterPage registerPage = new RegisterPage();
     RegisterResultPage registerResultPage = new RegisterResultPage();
@@ -11,6 +11,15 @@ public class TestSuite extends BaseTest{
     ElectronicsPage electronicsPage = new ElectronicsPage();
     CameraAndPhotoPage cameraAndPhotoPage = new CameraAndPhotoPage();
     ShoppingCartPage shoppingCartPage = new ShoppingCartPage();
+    ProductPage productPage = new ProductPage();
+    NopCommerceNewReleaseCommentsPage commentsPage = new NopCommerceNewReleaseCommentsPage();
+    FacebookPage facebookPage = new FacebookPage();
+    BuildOnYourOwnComputer buildOnYourOwnComputer = new BuildOnYourOwnComputer();
+    ComputerCartPage computerCartPage = new ComputerCartPage();
+    CheckOutAsAGuest_CartPage checkOutAsAGuestCartPage = new CheckOutAsAGuest_CartPage();
+    CheckoutStepsPage checkoutBillingPage = new CheckoutStepsPage();
+    CheckOutPage checkOutPage = new CheckOutPage();
+
     @Test
     public void verifyUserShouldBeAbleToRegisterSuccessfully(){
         //click on register button
@@ -78,7 +87,6 @@ public class TestSuite extends BaseTest{
         homePage.addProductsToCompareList();
         //verify User Compared Products Successfully
         compareListPage.verifyUserComparedProductsSuccessfully();
-
     }
     @Test
     public void verifyUserShouldBeAbleToSeeProductInShoppingCartSuccessfully(){
@@ -91,5 +99,50 @@ public class TestSuite extends BaseTest{
         //verify User Added Product In Shopping Cart Successfully
         shoppingCartPage.verifyUserAddedProductInShoppingCartSuccessfully();
     }
-
+    @Test
+    public void verifyUserShouldBeAbleToPrintOutProductsNameSuccessfully(){
+        homePage.printOutProductsName();
+    }
+    @Test
+    public void verifyUserShouldNotAbleToSearchWithOutKeyWord(){
+        homePage.clickOnSearch();
+    }
+    @Test
+    public void verifyUserShouldBeAbleToSelectAndVerifyCurrencyAccordingly(){
+        homePage.selectAndVerifyCurrencyAccordingly();
+    }
+    @Test
+    public void verifyUserShouldBeAbleToSearchGivenProductSuccessfully(){
+        homePage.searchProductFunctionality();
+        productPage.printProductName();
+    }
+    @Test
+    public void verifyNopCommerceNewReleaseCommentShouldAppearLast(){
+        homePage.clickOnNopCommerceNewRelease();
+        commentsPage.verifyNopCommerceNewReleaseMessageAppear();
+        commentsPage.leavingYourComment();
+        commentsPage.verifyNewCommentMessageAppear();
+    }
+    @Test
+    public void verifyGuestUserShouldBeAbleToCheckOutSuccessfully(){
+        homePage.clickOnBuildOnYourOwnComputer();
+        buildOnYourOwnComputer.selectingProductSpecification();
+        computerCartPage.verifyAllSpecificationsSelected();
+        checkOutAsAGuestCartPage.verifyGuestUserCheckoutSuccessfully();
+        checkoutBillingPage.billingAddressDetails();
+        checkoutBillingPage.shippingMethodDetails();
+        checkoutBillingPage.paymentMethodDetails();
+        checkoutBillingPage.paymentInformationDetails();
+        checkoutBillingPage.confirmOrder();
+        checkOutPage.verifyGuestUserShouldBeAbleToCheckOutProductSuccessfully();
+    }
+    @Test
+    public void verifyUserShouldBeAbleToSwitchToFacebookWindowTab(){
+        homePage.clickOnFacebookLogo();
+        homePage.verifyUserGetsBackToHomePage();
+    }
+    @Test
+    public void verifyAlertMessageAppearWhenUserClickOnVoteWithoutSelectingAnyOption(){
+        homePage.verifyVoteAlertMessage();
+    }
 }
