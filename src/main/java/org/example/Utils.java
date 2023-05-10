@@ -109,9 +109,5 @@ public class Utils extends BasePage{
     }
     String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
     String timeStamp2 = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-    //by using this time will create different in same run
-//    public static long timestamp() {
-//       Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//        return timestamp.getTime();
-//    }
+
 }
