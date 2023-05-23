@@ -1,12 +1,13 @@
 package org.example;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
@@ -22,6 +23,9 @@ public class Utils extends BasePage{
     }
     public static String getTextFromElement (By by){
         return driver.findElement(by).getText();
+    }
+    public static void findElement (By by){
+        driver.findElement(by);
     }
     public static void selectOptionsByText(By by,String text){
         Select select = new Select(driver.findElement(by));
@@ -46,6 +50,10 @@ public class Utils extends BasePage{
     //This method is used to retrieve the handles of all open windows.
     public Set<String> getAllWindowHandles(){
         return driver.getWindowHandles();
+    }
+    public List<WebElement> getTextFromElements(By by){
+        List<WebElement> elements = driver.findElements(by);
+        return elements;
     }
     public List<WebElement> findElements(By by){
         List<WebElement> elements = driver.findElements(by);
@@ -102,11 +110,32 @@ public class Utils extends BasePage{
         return element.isDisplayed();
     }
     //This method will fetch message on Pop-up
-    public static void SimpleDateFormat(){
-        Date now = new Date();
+    public static String currentTimeStamp(){
+        Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-        String formattedDate = formatter.format(now);
+        return formatter.format(date);
     }
+    public static void captureScreenshot( String fileName) {
+        //Convert web driver object to TakeScreenshot
+        TakesScreenshot scrShot = ((TakesScreenshot) driver);
+        //Call getScreenshotAs method to create image file
+        File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
+        //Move image file to new destination
+        File destFile = new File("src\\test\\Screenshots\\" + fileName + "" + currentTimeStamp() + ".png");
+        //Copy file at destination
+        try {
+            FileUtils.copyFile(SrcFile, destFile );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
     String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
     String timeStamp2 = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 

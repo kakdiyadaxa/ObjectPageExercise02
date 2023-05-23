@@ -2,7 +2,7 @@ package org.example;
 
 import org.openqa.selenium.By;
 
-public class BuildOnYourOwnComputer extends Utils{
+public class BuildYourOwnComputer extends Utils{
     private By _processor = By.cssSelector("select#product_attribute_1");
     private By _ram = By.cssSelector("select#product_attribute_2");
     private By _hdd = By.cssSelector("input#product_attribute_3_6");

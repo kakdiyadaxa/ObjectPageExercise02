@@ -1,4 +1,5 @@
 package org.example;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 public class BaseTest extends Utils{
@@ -8,8 +9,10 @@ public class BaseTest extends Utils{
         driverManager.openBrowser();
     }
     @AfterMethod
-    public void tearDown(){
-        driverManager.closeBrowser();
+    public void tearDown(ITestResult result){
+        if (!result.isSuccess()){
+            captureScreenshot(result.getName());
+        }
+        //driverManager.closeBrowser();
     }
-
 }

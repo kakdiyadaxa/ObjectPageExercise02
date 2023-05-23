@@ -15,12 +15,13 @@ public class RegisterPage extends Utils{
     private By _month_DateOfBirth = By.xpath("//select[@name=\"DateOfBirthMonth\"]");
     private By _year_DateOfBirth = By.xpath("//select[@name=\"DateOfBirthYear\"]");
 
+    LoadProp loadProp = new LoadProp();
 
     public void enterRegistrationDetails(){
         //type firstname
-        typeText(_firstName, "FirstnameTest");
+        typeText(_firstName,loadProp.getProperty("firstName"));
         //type lastname
-        typeText(_lastName, "LastNameTest");
+        typeText(_lastName,loadProp.getProperty("lastName"));
 
         //select dropdown for integer day
         selectOptionsByValue(_day_DateOfBirth,"6");
@@ -30,13 +31,14 @@ public class RegisterPage extends Utils{
         selectOptionsByText(_year_DateOfBirth,"1990");
 
         //type email address
-        typeText(_email, "vb5"+timeStamp+"@gmail.com");
+        typeText(_email,loadProp.getProperty("email")+timeStamp+loadProp.getProperty("emailDomain"));
         //type password
         typeText(_password, "test1234");
         //type confirm password
         typeText(_confirmPassword, "test1234");
         //click on register button
         clickOnElement(_clickOnRegisterButton);
+
     }
     public void enterRegistrationDetails2(){
         //type firstname

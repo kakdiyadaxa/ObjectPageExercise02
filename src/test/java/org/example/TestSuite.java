@@ -12,14 +12,13 @@ public class TestSuite extends BaseTest {
     CameraAndPhotoPage cameraAndPhotoPage = new CameraAndPhotoPage();
     ShoppingCartPage shoppingCartPage = new ShoppingCartPage();
     ProductPage productPage = new ProductPage();
-    NopCommerceNewReleaseCommentsPage commentsPage = new NopCommerceNewReleaseCommentsPage();
+    NopCommerceNewReleaseCommentsPage nopCommerceNewReleaseCommentsPage = new NopCommerceNewReleaseCommentsPage();
     FacebookPage facebookPage = new FacebookPage();
-    BuildOnYourOwnComputer buildOnYourOwnComputer = new BuildOnYourOwnComputer();
+    BuildYourOwnComputer buildOnYourOwnComputer = new BuildYourOwnComputer();
     ComputerCartPage computerCartPage = new ComputerCartPage();
     CheckOutAsAGuest_CartPage checkOutAsAGuestCartPage = new CheckOutAsAGuest_CartPage();
-    CheckoutStepsPage checkoutBillingPage = new CheckoutStepsPage();
+    CheckoutStepsPage checkoutStepsPage = new CheckoutStepsPage();
     CheckOutPage checkOutPage = new CheckOutPage();
-
     @Test
     public void verifyUserShouldBeAbleToRegisterSuccessfully(){
         //click on register button
@@ -104,36 +103,37 @@ public class TestSuite extends BaseTest {
         homePage.printOutProductsName();
     }
     @Test
-    public void verifyUserShouldNotAbleToSearchWithOutKeyWord(){
-        homePage.clickOnSearch();
-    }
-    @Test
     public void verifyUserShouldBeAbleToSelectAndVerifyCurrencyAccordingly(){
         homePage.selectAndVerifyCurrencyAccordingly();
     }
     @Test
+    public void verifyUserShouldNotAbleToSearchWithOutKeyWord(){
+        homePage.clickOnSearch();
+        homePage.verifySearchAlertMessage();
+    }
+    @Test
     public void verifyUserShouldBeAbleToSearchGivenProductSuccessfully(){
         homePage.searchProductFunctionality();
-        productPage.printProductName();
+        productPage.printProductsName();
     }
     @Test
     public void verifyNopCommerceNewReleaseCommentShouldAppearLast(){
         homePage.clickOnNopCommerceNewRelease();
-        commentsPage.verifyNopCommerceNewReleaseMessageAppear();
-        commentsPage.leavingYourComment();
-        commentsPage.verifyNewCommentMessageAppear();
+        nopCommerceNewReleaseCommentsPage.verifyNopCommerceNewReleaseMessageAppear();
+        nopCommerceNewReleaseCommentsPage.leavingYourComment();
+        nopCommerceNewReleaseCommentsPage.verifyNewCommentMessageAppear();
     }
     @Test
     public void verifyGuestUserShouldBeAbleToCheckOutSuccessfully(){
-        homePage.clickOnBuildOnYourOwnComputer();
+        homePage.clickOnBuildYourOwnComputer();
         buildOnYourOwnComputer.selectingProductSpecification();
         computerCartPage.verifyAllSpecificationsSelected();
         checkOutAsAGuestCartPage.verifyGuestUserCheckoutSuccessfully();
-        checkoutBillingPage.billingAddressDetails();
-        checkoutBillingPage.shippingMethodDetails();
-        checkoutBillingPage.paymentMethodDetails();
-        checkoutBillingPage.paymentInformationDetails();
-        checkoutBillingPage.confirmOrder();
+        checkoutStepsPage.billingAddressDetails();
+        checkoutStepsPage.shippingMethodDetails();
+        checkoutStepsPage.paymentMethodDetails();
+        checkoutStepsPage.paymentInformationDetails();
+        checkoutStepsPage.confirmOrder();
         checkOutPage.verifyGuestUserShouldBeAbleToCheckOutProductSuccessfully();
     }
     @Test
@@ -144,5 +144,6 @@ public class TestSuite extends BaseTest {
     @Test
     public void verifyAlertMessageAppearWhenUserClickOnVoteWithoutSelectingAnyOption(){
         homePage.verifyVoteAlertMessage();
+
     }
 }

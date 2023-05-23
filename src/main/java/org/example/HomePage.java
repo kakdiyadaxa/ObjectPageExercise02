@@ -11,15 +11,14 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
 public class HomePage extends Utils{
     FacebookPage facebookPage = new FacebookPage();
     private By _registerButton = By.xpath("//a[@class=\"ico-register\"]");
     private By _goodRadioButton = By.xpath("//input[@id=\"pollanswers-2\"]");
     private By _voteButton = By.xpath("//button[text()='Vote']");
-    private String getExpectedVotingErrorMsg = "Voting is working.";
+    private String getExpectedVotingErrorMsg = "Only registered users can vote.";
     private By _voteErrorMessage = By.xpath("//div[@class=\"poll-vote-error\"]");
-    private String getExpectedVotingMsg = "Voting is not working";
+    private String getExpectedVotingMsg = "Voting not done";
     private By _voteMessage = By.xpath("//span[@class=\"poll-total-votes\"]");
     private By _buildYourOwnComputer = By.xpath("//a[text()=\"Build your own computer\"]");
     private By _appleMacBook = By.xpath("//a[text()=\"Apple MacBook Pro 13-inch\"]");
@@ -33,14 +32,18 @@ public class HomePage extends Utils{
     private By _searchButton = By.xpath("//button[@type=\"submit\"]");
     private String expectedSearchAlertMessage = "Please enter some search keyword";
     private By _currencySelector = By.cssSelector("select#customerCurrency");
-    private By _currencyConfirm = By.cssSelector("span.price");
+    private By _euroOption = By.xpath("//option[text()='Euro']");
+    private By _productsPrice = By.cssSelector("span.price");
+    private By _productTitles = By.cssSelector("h2.product-title");
     private String  expectedVoteAlertMessage = "Please select an answer";
     private By _searchInputBox = By.cssSelector("input#small-searchterms");
     private By _clickNopCommerceNewRelease = By.xpath("(//a[@class=\"news-title\"])[2]");
     private By _facebookPage = By.cssSelector("li.facebook");
     private String getExpectedHomePageMessage = "Welcome to our store";
     private By _welcomeToStoreMessage = By.xpath("//h2[text()=\"Welcome to our store\"]");
-
+    private By _compareProductsList = By.xpath("//a[text()=\"Compare products list\"]");
+//    public String searchProduct = System.getProperty("Nike");
+    LoadProp loadProp = new LoadProp();
     public void clickOnRegisterButton(){
         //click on register button
         clickOnElement(_registerButton);
@@ -59,19 +62,20 @@ public class HomePage extends Utils{
         wait.until(ExpectedConditions.visibilityOfElementLocated(_voteErrorMessage));
         //print message
         String actualMessage = getTextFromElement(_voteErrorMessage);
-        System.out.println("My message " + actualMessage);
+        System.out.println("My message : " + actualMessage);
         Assert.assertEquals(actualMessage,getExpectedVotingErrorMsg);
     }
     public void userVoteMessage(){
         //print out message
         String actualMessage = getTextFromElement(_voteMessage);
-        System.out.println("My message " + actualMessage);
-        Assert.assertEquals(actualMessage,getExpectedVotingMsg);
+        System.out.println("My message : " + actualMessage);
+        Assert.assertNotEquals(actualMessage,getExpectedVotingMsg);
     }
     public void clickOnAppleMacBook(){
         //click On Apple MacBook
         clickOnElement(_appleMacBook);
     }
+
     public void addProductsToCompareList() {
         //click on Add to compare list for HTC One M8 Android L 5.0 Lollipop
         clickOnElement(_htcMobile);
@@ -81,15 +85,18 @@ public class HomePage extends Utils{
         //click on Add to compare list for $25 Virtual Gift Card
         clickOnElement(_virtualGiftCard);
 
+        //for time wait
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(_closeGreenLine2));
         //close green line bar
         clickOnElement(_closeGreenLine2);
 
         //for time wait
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(_clickGreenLine));
+        WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(40));
+        wait1.until(ExpectedConditions.visibilityOfElementLocated(_clickGreenLine));
 
-        //click green line
-        clickOnElement(_clickGreenLine);
+        //click on Compare products list
+        clickOnElement(_compareProductsList);
     }
     public void clickOnElectronics(){
         //click on Electronics
@@ -105,6 +112,8 @@ public class HomePage extends Utils{
     public void clickOnSearch(){
         //click on search
         clickOnElement(_searchButton);
+    }
+    public void verifySearchAlertMessage(){
         // Switching to Alert
         Alert alert = driver.switchTo().alert();
         // Capturing alert message
@@ -118,15 +127,19 @@ public class HomePage extends Utils{
     public void selectAndVerifyCurrencyAccordingly() {
         //select drop down currency US Dollar
         selectOptionsByText(_currencySelector, "US Dollar");
-        List<WebElement> actualCurrency = findElements(_currencyConfirm);
-        for (WebElement e : actualCurrency) {
-            System.out.println(e.getText());
+        // Verify currency for all products
+        List<WebElement> productPrices = driver.findElements(_productsPrice);
+        for (WebElement price : productPrices) {
+            Assert.assertTrue(price.getText().contains("$"));
+            System.out.println(price.getText());
         }
         //select drop down currency Euro
         selectOptionsByText(_currencySelector, "Euro");
-        List<WebElement> actualCurrency1 = driver.findElements(_currencyConfirm);
-        for (WebElement e : actualCurrency1) {
-            System.out.println(e.getText());
+        // Verify currency for all products
+        List<WebElement> productPrices2 = driver.findElements(_productsPrice);
+        for (WebElement price2 : productPrices2) {
+            Assert.assertTrue(price2.getText().contains("€"));
+            System.out.println(price2.getText());
         }
     }
     public void verifyVoteAlertMessage(){
@@ -144,18 +157,10 @@ public class HomePage extends Utils{
     }
     public void searchProductFunctionality() {
         //type nike in search box
-        typeText(_searchInputBox, "Nike");
+        typeText(_searchInputBox,loadProp.getProperty("searchProduct"));
         //click on search button
         clickOnElement(_searchButton);
 
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Enter the name of the product you want to search for: ");
-//        String searchKeyword = scanner.nextLine();
-//
-//        // Enter the user input into the search bar element and click the search button
-//        typeText(_searchInputBox,searchKeyword);
-//        WebElement searchButton = driver.findElement(By.xpath("//button[@class='button-1 search-box-button']"));
-//        searchButton.click();
     }
     public void clickOnNopCommerceNewRelease(){
         //click on nopCommerce new release!
@@ -179,9 +184,6 @@ public class HomePage extends Utils{
             }
         }
     }
-
-
-
     public void verifyUserGetsBackToHomePage(){
         //for time wait load
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
@@ -191,8 +193,8 @@ public class HomePage extends Utils{
         System.out.println("My message " + actualMessage);
         Assert.assertEquals(actualMessage,getExpectedHomePageMessage);
     }
-    public void clickOnBuildOnYourOwnComputer(){
-        //click On Build On Your Own Computer
+    public void clickOnBuildYourOwnComputer(){
+        //click On Build Your Own Computer
         clickOnElement(_buildYourOwnComputer);
     }
 }

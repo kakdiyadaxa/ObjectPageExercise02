@@ -14,7 +14,7 @@ public class NopCommerceNewReleaseCommentsPage extends Utils{
     public void verifyNopCommerceNewReleaseMessageAppear(){
         //print out actual message (nopCommerce new release!)
         String actualMessage = getTextFromElement(_newReleaseMessage);
-        System.out.println("My message " + actualMessage);
+        System.out.println("My message : " + actualMessage);
         Assert.assertEquals(actualMessage,getExpectedNewReleaseMessage);
     }
     public void leavingYourComment(){
@@ -27,7 +27,7 @@ public class NopCommerceNewReleaseCommentsPage extends Utils{
     public void verifyNewCommentMessageAppear(){
         //print out actual message (News comment is successfully added.)
         String actualMessage = getTextFromElement(_newCommentMessage);
-        System.out.println("My message " + actualMessage);
+        System.out.println("My message : " + actualMessage);
         Assert.assertEquals(actualMessage,getExpectedNewCommentMessage);
     }
 }
